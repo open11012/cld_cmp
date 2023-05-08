@@ -1,0 +1,9 @@
+#!/bin/bash
+#PBS -N readH8_ni_03_05
+#PBS -l nodes=4:ppn=12
+#PBS -j oe
+#PBS -o RUN_LOG
+##PBS -e %J.err
+
+cd /home/fuhy/data/SWC/
+matlab -nodesktop -nosplash  -nodisplay -r  readH8_ni_03_05>loge03_05 2>&1
