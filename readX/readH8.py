@@ -110,7 +110,10 @@ def readH8data(dt_cal, lat_cal, lon_cal, varnames, path_H8, Timelist):
     # for ii in range(len(dt_cal)):
         if (lat_cal[ii]<60.02) & (lat_cal[ii]>-60.02) & (lon_cal[ii]>79.98) & (lon_cal[ii]<200.02): # 在H8空间范围内
             name_H8 = getH8name(dt_cal[ii], lat_cal[ii], lon_cal[ii], Timelist) # 获取点对应H8数据名称
+<<<<<<< HEAD
             print("name_H8:",name_H8)
+=======
+>>>>>>> 36d8a42047b6077a75a63db64fa6ae11184366c4
             if os.path.isfile(path_H8+name_H8):
                 H8 = xr.open_dataset(path_H8+name_H8)
                 # 获取对应数据
