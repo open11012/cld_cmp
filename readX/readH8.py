@@ -110,17 +110,17 @@ def readH8data(dt_cal, lat_cal, lon_cal, varnames, path_H8, Timelist):
     # for ii in range(len(dt_cal)):
         if (lat_cal[ii]<60.02) & (lat_cal[ii]>-60.02) & (lon_cal[ii]>79.98) & (lon_cal[ii]<200.02): # 在H8空间范围内
             name_H8 = getH8name(dt_cal[ii], lat_cal[ii], lon_cal[ii], Timelist) # 获取点对应H8数据名称
-<<<<<<< HEAD
             print("name_H8:",name_H8)
-=======
->>>>>>> 36d8a42047b6077a75a63db64fa6ae11184366c4
+            H8_name= pd.DataFrame([ name_H8 ],columns=['name_H8'])
+            
+            pd.DataFrame([ str(x) for x in X_ans ],columns=['input'])
             if os.path.isfile(path_H8+name_H8):
                 H8 = xr.open_dataset(path_H8+name_H8)
                 # 获取对应数据
                 # Dataset无法同时用idx检索，只能单独拿出DataArray读取位置
-                df_piece = H8[varnames].sel(latitude=[lat_cal[ii]], longitude=[lon_cal[ii]], method="nearest")\
+                df_piece = H8[varnames[:-1]].sel(latitude=[lat_cal[ii]], longitude=[lon_cal[ii]], method="nearest")\
                     .to_dataframe().reset_index().drop(['latitude', 'longitude'], axis=1)
-                df_H8 = pd.concat([df_H8, df_piece], ignore_index=True)
+                df_H8 = pd.concat([df_H8, df_piece,H8_name], ignore_index=True)
             else:
                 df_H8 = pd.concat([df_H8, df_nan], ignore_index=True)
         else:
