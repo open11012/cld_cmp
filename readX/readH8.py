@@ -116,10 +116,11 @@ def readH8data(dt_cal, lat_cal, lon_cal, varnames, path_H8, Timelist):
                 H8 = xr.open_dataset(path_H8+name_H8)
                 # 获取对应数据
                 # Dataset无法同时用idx检索，只能单独拿出DataArray读取位置
-                df_piece = H8[varnames[:-1]].sel(latitude=[lat_cal[ii]], longitude=[lon_cal[ii]], method="nearest")\
+                df_piece = H8[varnames[:-2]].sel(latitude=[lat_cal[ii]], longitude=[lon_cal[ii]], method="nearest")\
                     .to_dataframe().reset_index()
+                df_piece['name_H8'] = name_H8
+                df_piece['Time'] = dt_cal[ii]
                 df_H8 = pd.concat([df_H8, df_piece], ignore_index=True)
-                df_H8['name_H8'] = name_H8
             else:
                 df_H8 = pd.concat([df_H8, df_nan], ignore_index=True)
         else:
